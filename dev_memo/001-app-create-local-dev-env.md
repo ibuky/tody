@@ -6,12 +6,12 @@
 
 ### 対象
 - HTML, CSS, **javascript**を勉強したい人
-- git, node.js
-について勉強したい人
+- git, node.jsについて勉強したい人
 - スマホ用アプリを作ってみたいけどJavaとかSwiftとか面倒な人
 - Cordova, OnsenUIを使ってみたい人
 
 あたりでしょうか？
+Progateなどで各言語の基本的な部分は1週しておくとよりすんなりと進めることができると思います ^^) _旦~~
 
 [:contents]
 
