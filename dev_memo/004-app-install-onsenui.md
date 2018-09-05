@@ -1,4 +1,4 @@
-# HTML/CSS/JavascriptでAndroid/iOSアプリをつくる。(4 - OnsenUIの導入)
+# HTML/CSS/JavaScriptでAndroid/iOSアプリをつくる。(4 - OnsenUIの導入)
 
 ### 前の記事
 仮想端末でのサンプルアプリの起動
@@ -247,7 +247,7 @@ document.addEventListener('init', function(event) {
 
 処理内容はコメントの通りです。繰り返しになりますが詳しくは後々の記事で！(*'ω'*)
 
-OnsenUI特有の処理は`ons.notification.alert()`ですね！これを実行するとポップアップが表示されます。現在はALERTというタイトルでポップアップをひょうじしていますが、その文言も変えたり、[OK]/[CANCEL]ボタン付きのポップアップに変えたりすることもできます。
+OnsenUI特有の処理は`ons.notification.alert()`ですね！これを実行するとポップアップが表示されます。現在はALERTというタイトルでポップアップを表示していますが、その文言も変えたり、[OK]/[CANCEL]ボタン付きのポップアップに変えたりすることもできます。
 
 こんな感じで表示されていれば、今回の内容はばっちりです！
 
