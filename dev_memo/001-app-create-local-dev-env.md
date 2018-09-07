@@ -7,6 +7,7 @@
 ### 対象
 - HTML, CSS, **javascript**を勉強したい人
 - git, node.jsについて勉強したい人
+  (いずれ外部API連携を行い、Expressで建てたサーバと通信させたい)
 - スマホ用アプリを作ってみたいけどJavaとかSwiftとか面倒な人
 - Cordova, OnsenUIを使ってみたい人
 
@@ -80,7 +81,6 @@ node.jsをインストールすると、一緒に`npm`というコマンドも�
 
 #### Cordova
 Cordovaはいわゆるフレームワークと呼ばれるもので、**こいつのおかげでHTML/CSS/JSだけでAndroidで動くいい感じのアプリを作ることができます。**
-
 [https://cordova.apache.org/docs/ja/3.1.0/guide/overview/index.html:embed]
 
 以下の`npm`コマンドを実行するとインストールできます。Windowsの場合コマンドプロンプトを起動してそこから実行します。
