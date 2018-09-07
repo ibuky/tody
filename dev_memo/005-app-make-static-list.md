@@ -19,7 +19,7 @@ OnsenUIの導入
 #### ons-navigator
 前回も出てきましたが、navigatorです。**ページの進む/戻るを管理するための要素で、一番最初のページを呼び出すためにも使用します。**
 
-Cordovaではデフォルトでは、`index.html`が読み込まれてそこにいる`<ons-navigator>`で指定しているIDのページが表示されます。以下のように前回作成した`index.html`の`<body>`内を修正して`list.html`が読み込まれるようにしてください。`button.html`のファイルは今後使用しないので、削除してもOKです( 一一)
+Cordovaではデフォルトでは、`index.html`が読み込まれてそこにいる`<ons-navigator>`で指定しているIDのページが表示されます。以下のように前回作成した`index.html`の`<body>`内を修正して`list.html`が読み込まれるようにしてください。一応`button.html`はまだテストや動作確認なんかで使用するかもしれないので置いておいてください！
 
 ```html
 <body>
@@ -215,11 +215,11 @@ var js_list = {
             var elem_list_item = document.createElement('ons-list-item');
 
             // 属性を追加
-            elem_list_item.setAttribute('modifier', 'chevron');
-            elem_list_item.setAttribute('tappable', '');
+            elem_list_item.setAttribute('modifier', 'chevron'); // <ons-list-item modifier="chevron"></ons-list-item>
+            elem_list_item.setAttribute('tappable', '');        // <ons-list-item modifier="chevron" tappable></ons-list-item>
 
             // 表示する値を追加
-            elem_list_item.innerHTML = disp_str[i];
+            elem_list_item.innerHTML = disp_str[i];             // <ons-list-item modifier="chevron" tappable>n行目です</ons-list-item>
 
             /**
              * ここまでの段階では
@@ -241,11 +241,12 @@ var js_list = {
             var elem_list_item = document.createElement('ons-list-item');
             
             // 属性を追加
-            elem_list_item.setAttribute('modifier', 'chevron');
+            elem_list_item.setAttribute('modifier', 'chevron');     
             elem_list_item.setAttribute('tappable', '');
             
             // 表示する値を追加
             elem_list_item.innerText = str + ' (forEachで追加)';
+            
             
             // 親要素に追加
             elem_list.appendChild(elem_list_item);
@@ -322,19 +323,29 @@ for (var i = 0; i < disp_str.length; i++) {
 `GetElementbyId`, `AddEventListener`, `createElement`, `setAttribute`, `appendChild`
 あたりを使いこなすことができるようになれば基本的なDOM操作はできるようになったと言えると思います(*'ω'*)
 
-コメントのままなので特に追記することがないです。。。(笑)
+DOM操作に関する各メソッドの説明や使い方、例文などを参照するには、**MDN Web Docs**が便利です。JavaScriptの公式Javadocみたいなもんですね。
+
+[https://developer.mozilla.org/ja/docs/Web/API/Element/setAttribute:embed]
 
 `appendChild`では追加した順に上から表示されるようになるので、もし逆順(5 -> 1だったり、登録日時の昇順/降順)で表示したい場合は渡す値を工夫する必要があります。
 
 <br><br>
 
-おまけで`forEach`を使用した場合の書き方も載せています。
+おまけで`forEach`を使用した場合の書き方も載せています。こちらのほうがコードの記述量が少なく簡潔に書くことができます。
 
+コードの記述が終わりましたら、`F5`とかを押してデバッグ端末に反映させてみましょう。こんな感じになっていればひとまず今回は完了です！
 
+<!-- 最終画面 -->
 
+#### 追加作業
+これでも飽き足りない！という方は
 
+- タイトルもJavaScriptから動的に変えてみる
+- 一覧の項目の背景色を変更してみる(CSSを使用)
+- 一覧をタップしたときにポップアップを表示
+  (`addEventListener()`, `ons.notification.alert()`を使用)
 
-
+あたりができるかどうか試してみてください('ω')ノ
 
 
 ### 次の記事
