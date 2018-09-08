@@ -12,5 +12,6 @@ document.addEventListener('init', function(event) {
     
     } else if (page.id === 'sqltest.html') {
         js_sqltest.init(page);
+        
     }
 });
