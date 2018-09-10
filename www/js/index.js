@@ -5,8 +5,6 @@ document.addEventListener('init', function(event) {
     // button.htmlページの処理
     if (page.id === 'button.html') {
 
-        // ...
-
     } else if (page.id === 'list.html') {
         js_list.init(page);
     

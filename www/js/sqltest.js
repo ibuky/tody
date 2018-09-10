@@ -23,6 +23,10 @@ var js_sqltest = {
             insert : "INSERT INTO test (text) VALUES (?)",
 
             select : "SELECT * FROM test",
+
+            update : "UPDATE test SET text = '更新しました' WHERE id = 1",
+
+            delete : "DELETE FROM test WHERE id = 1",
         }
 
         // SQL(CREATE TABLE, INSERT)を実行
@@ -30,6 +34,8 @@ var js_sqltest = {
             // 実行部分
             tx.executeSql(sql.create_table);
             // tx.executeSql(sql.insert, ['テスト']);
+            tx.executeSql(sql.update);
+            tx.executeSql(sql.delete);
         }, function(error) {
             // SQL処理エラー発生時の処理
             console.log('エラーが発生しました : ' + error.message);

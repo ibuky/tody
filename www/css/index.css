@@ -125,3 +125,9 @@ ons-list-item {
 .button--normal {
     width: 33vw;
 }
+
+.button--fab {
+    background-color:#0076ff;
+    color: white;
+    font-weight: bold;
+}

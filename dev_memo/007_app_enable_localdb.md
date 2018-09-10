@@ -1,4 +1,4 @@
-# HTML/CSS/JavascriptでAndroid/iOSアプリをつくる。(# - ローカルDBの作成、有効化)
+# HTML/CSS/JavascriptでAndroid/iOSアプリをつくる。(7 - ローカルDBの作成、有効化)
 
 今回はスマホ内に作成するデータベースについてです。
 
@@ -170,7 +170,7 @@ var sql = {
         + "  text       TEXT"
         + ")",
 
-    insert : "INSERT INTO test (text, date) VALUES (?)",
+    insert : "INSERT INTO test (text) VALUES (?)",
 }
 
 // SQLを実行
@@ -225,7 +225,7 @@ var sql = {
     select : "SELECT * FROM test",
 }
 
-//...
+//... (CREATE TABLE, INSERTの処理の部分はそのまま残しておいてください)
 
 // SQL(SELECT)を実行
 db.transaction(function(tx) {
@@ -245,18 +245,126 @@ db.transaction(function(tx) {
 オブジェクト型の値なので、あとは`result.rows.item(0).id`というような感じでカラム名をしていてあげることで1データの特定の値を参照できます。
 
 
-
-
-
 ##### データを更新する(UPDATE)
+UPDATE文の文法は以下のような感じです。
+
+```
+UPDATE [テーブル名] SET [カラム名] = [更新後の値]
+ WHERE [更新したい行だけを絞り込める条件] 
+```
+
+肝となるのは`WHERE`の条件部分で、**この条件指定が間違っていると予期しない行のデータも更新してしまいます。**
+
+たとえば、会社に「田中太郎」さんが二人いるとします。
+【従業員】テーブルの「田中太郎」(A)さんの退職フラグをTRUEにしたいときに、`UPDATE 従業員 SET 退職F = TRUE WHERE 名前 = '田中太郎'`とすると、「田中太郎」(B)さんの退職フラグもTRUEになってしまいます！
+
+もちろん「一気にどちらの田中太郎さんの退職フラグをTRUEにしたい」という場合は上記のSQLでも問題はありません。しかしたいていの場合は1件のデータに対してのみ操作したい場合がほとんどです。
+
+基本的には、DBのテーブルには一行ごとに**絶対にほか被らないユニークな値**が設定されています。これが`PRIMARY KEY`(主キー)と呼ばれるものです。たいていの場合は連番の数値となります。
+
+今回のtestテーブルでもidというカラム名で指定していますね！
+
+先ほどSELECT文を追加したときにコメントアウトしたINSERTの下に同じように追加します。
+
+```javascript
+var sql = {
+    //...
+
+    update : "UPDATE test SET text = '更新しました' WHERE id = 1",
+}
+
+// SQL(CREATE TABLE, INSERT)を実行
+db.transaction(function(tx) {
+    // 実行部分
+    tx.executeSql(sql.create_table);
+    // tx.executeSql(sql.insert, ['テスト']);  // これをコメントアウト
+    tx.executeSql(sql.update);  // これを追加
+}, function(error) {
+    // SQL処理エラー発生時の処理
+    console.log('エラーが発生しました : ' + error.message);
+
+}, function() {
+    // SQL処理成功時の処理
+    console.log('処理成功');
+    
+})
+
+// ... (SELECTの処理)
+```
+
+更新が無事できていたら、先ほどのSELECT文の処理の部分で出力しているログで確認できます。
+
+```
+Object {id: 1, text: "更新しました"}
+Object {id: 2, text: "テスト"}
+Object {id: 3, text: "テスト"}
+Object {id: 4, text: "テスト"}
+Object {id: 5, text: "テスト"}
+```
+
+指定したIDの行だけ内容が変更されているでしょうか？
+ちなみにWHERE条件を指定せずに`UPDATE test SET text = NULL`とかを実行した場合、**testテーブル内の全行にUPDATEが実行され、textがNULL(空)になりますのでご注意を！**今回はテスト用のテーブルなので実行しても何ら問題はないですが、本番用のデータベースを触るときには要注意ですね( 一一)
+
+
 ##### データを削除する(DELETE)
+UPDATEが無事成功していればこちらも同じような感じです。
+
+```
+DELETE FROM [テーブル名] WHERE [条件]
+```
+
+です。**こちらの場合もUPDATEと同じくWHEREで絞り込む条件が重要になってきます！**WHEREを指定しない場合、**全件削除**になるのでご注意を( 一一)
+ちなみにその全件削除をうまく利用した処理なんかも存在したりしています。
+
+以下のように処理を変更してみてください。
+
+```javascript
+var sql = {
+    // ... 
+
+    delete : "DELETE FROM test WHERE id = 1",
+}
+
+// SQL(CREATE TABLE, INSERT)を実行
+db.transaction(function(tx) {
+    // 実行部分
+    tx.executeSql(sql.create_table);
+    // tx.executeSql(sql.insert, ['テスト']);
+    // tx.executeSql(sql.update);
+    tx.executeSql(sql.delete);  // この行を追加
+}, function(error) {
+    // SQL処理エラー発生時の処理
+    console.log('エラーが発生しました : ' + error.message);
+
+}, function() {
+    // SQL処理成功時の処理
+    console.log('処理成功');
+    
+})
+
+// ... (SELECTの処理)
+```
+
+ログに以下のように表示されていれば、成功です。
+id = 1の行が削除されていますね！
+
+```
+Object {id: 2, text: "テスト"}
+Object {id: 3, text: "テスト"}
+Object {id: 4, text: "テスト"}
+Object {id: 5, text: "テスト"}
+```
+
+以上でローカルDBへのCRUD実行は終了です！お疲れさまでした ^^) _旦~~
+
+忘れずに`index.html`のナビゲータに指定したpageの部分を`list.html`に戻しておいてください！
 
 
+### 最後に
+今回はあまりアプリの処理ではなく**データベース**の部分がほとんど、しかも結構長かったので難しかったかもしれません。。。
+ですがアプリや業務システムでも必ず必要になるSQLですので、覚えておいて損はないですね(*'ω'*)
 
-
-
-
-
+次回からは再びアプリ画面に戻って、登録ボタンと登録画面の作成を進めていきたいと思います('ω')
 
 ### 次の記事
 
