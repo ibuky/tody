@@ -37,7 +37,7 @@ body {
     );
     background-attachment:fixed;
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:14px;
+    font-size:22px;
     height:100%;
     margin:0px;
     padding:0px;
@@ -127,7 +127,17 @@ ons-list-item {
 }
 
 .button--fab {
-    background-color:#0076ff;
+    width: 20vw;
+    height: 20vw;
+    background-color: #0076ff;
     color: white;
-    font-weight: bold;
+}
+
+ons-fab > span > p {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    line-height: 20vw;
+    font-size: 8vw;
 }

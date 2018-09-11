@@ -4,6 +4,12 @@ var js_list = {
      * ページ表示時の処理
      */
     init : function(page) {
+        
+        // ボタンに登録画面への遷移を設定
+        var elem_btn = document.getElementById('register-button');      // ボタンの要素を取得
+        elem_btn.addEventListener('click', this.onClickRegisterButton); // 処理を指定
+
+
         // 表示する文字列を指定(配列数だけ一覧が作成される)
         var disp_str = [
             '1行目です',
@@ -59,5 +65,13 @@ var js_list = {
             // 親要素に追加
             elem_list.appendChild(elem_list_item);
         });
-    }
+    },
+
+    /**
+     * 登録ボタン押下時の処理
+     */
+    onClickRegisterButton : function(event) {
+        // 登録画面へ遷移
+        document.querySelector('#navi').pushPage('register.html');
+    },
 }
