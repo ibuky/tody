@@ -72,6 +72,6 @@ var js_list = {
      */
     onClickRegisterButton : function(event) {
         // 登録画面へ遷移
-        document.querySelector('#navi').pushPage('register.html');
+        document.getElementById('navi').pushPage('register.html');
     },
 }

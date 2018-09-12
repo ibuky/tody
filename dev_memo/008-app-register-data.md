@@ -50,11 +50,34 @@
 .button--fab {
     background-color: #0076ff;  /* 背景色 */
     color: white;               /* 文字色 */
-    font-weight: bold;          /* 太字に */
 }
 ```
 
+
 背景色などは好きな値を指定してOKです。上記ソースで指定している色はデフォルトの`ons-button`の色と同じです。(変数化されていないのでライブラリ内から探しました)
+
+マテリアルデザインのガイドラインに反することになると思いますが、現状ではボタンが何となく小さいと感じたので大きさを画面幅にしてみます。今のままでいいという方は上のCSSで大丈夫です。
+以下のCSSに置き換えることで可変にできます。
+
+```css
+.button--fab {
+    width: 20vw;
+    height: 20vw;
+    background-color: #0076ff;
+    color: white;
+}
+
+ons-fab > span > p {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    line-height: 20vw;
+    font-size: 8vw;
+}
+```
+
+内部の要素を上下左右中央に揃えるよくあるやり方ですね。ボタンの`width`と`height`, pの`line-height`は揃えるようにしてください。
 
 <!-- ons-fab-color.png -->
 
@@ -82,7 +105,21 @@
 
 あとは、`list.js`にボタン押下時の処理を追加します。onclickイベントに処理を追加します。
 
+```javascript
+var js_list = {
+    
+    /**
+     * ページ表示時の処理
+     */
+    init : function(page) {
+        // ボタンに登録画面への遷移を設定
+        var elem_btn = document.getElementById('register-button');      // ボタンの要素を取得
+        elem_btn.addEventListener('click', this.onClickRegisterButton); // 処理を指定
 
+        // ... (以下以前作成した一覧を表示する処理)
+
+    }
+```
 
 
 
