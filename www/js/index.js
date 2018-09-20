@@ -2,6 +2,8 @@ document.addEventListener('init', function(event) {
     // 表示対象のページを取得
     var page = event.target;
 
+    
+
     // button.htmlページの処理
     if (page.id === 'button.html') {
 

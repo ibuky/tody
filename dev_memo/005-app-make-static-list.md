@@ -84,9 +84,6 @@ Cordovaではデフォルトでは、`index.html`が読み込まれてそこに�
 
     <!-- ツールバー右側の要素 -->
     <div class="right">
-        <ons-button modifier="quiet">
-            <ons-icon icon="fa-bars"></ons-icon>
-        </ons-button>
     </div>
 </ons-toolbar>
 ```
@@ -95,32 +92,34 @@ Cordovaではデフォルトでは、`index.html`が読み込まれてそこに�
 
 <!-- list-toolbar -->
 
-`<div>`のクラス`left/center/right`をそれぞれ指定することでいい感じに要素を配置してくれます。なのでここでは`center`にタイトル、`right`にメニューボタンを配置しています。(今後特にメニューは使う予定はないですがとりあえず配置してみました。)
+`<div>`のクラス`left/center/right`をそれぞれ指定することでいい感じに要素を配置してくれます。なのでここでは`center`にタイトル、`right`は特に使う予定がないので空にしています
 
 `<div>`内の要素が空の場合は、詰めて表示されます。`left`の中には今後戻るボタンを配置する予定です。
 
 
 #### ons-buttonをアイコンにする
-上記ソース内の、
+例えば、`right`内に何かアイコンを表示して、タップ時に処理を行いたいという場合、
 
 ```html
-<ons-button modifier="quiet">
-    <ons-icon icon="fa-bars"></ons-icon>
-</ons-button>
+<div class="right"> 
+    <ons-button modifier="quiet">
+       <ons-icon icon="fa-star"></ons-icon>
+    </ons-button>
+</div>
 ```
 
 という風にすると**アイコンをボタン風にすることができます。**
 
 ボタンに`modifier="quiet"`を指定することによってボタン背景色や影を透明化したボタンを作成することができます。
 
-そのボタンに表示する文字としてアイコンを指定しています。`<ons-icon>`に`icon="fa-bars"`属性を指定するとメニューのアイコンが表示されます。
+そのボタンに表示する文字としてアイコンを指定しています。`<ons-icon>`に`icon="fa-star"`属性を指定すると星のアイコンが表示されます。
 
 指定できるアイコンは、**Font AwesomeかGoogle Material Icons**となります。WEBページでよくお世話になるやつらですね(*'ω'*)
 
 ほかにも指定できたはずですが、この二つを押さえておけば問題ないでしょう！
 
 `icon=""`の値にアイコン名を指定します。**この時、Font Awesomeの場合は、接頭辞としてfa-、Material Iconsの場合はmd-をつけます。**
-`fa-bars`はFont Awesomeから拾ってきたものです。Material Iconsを使用する場合は、`md-menu`となりますね。
+`fa-star`はFont Awesomeから拾ってきたものです。Material Iconsを使用する場合は、`md-menu`となりますね。
 
 使えるアイコンとアイコン名などは以下から参照できます。
 
@@ -321,7 +320,7 @@ for (var i = 0; i < disp_str.length; i++) {
 典型的(？)なfor文の書き方です。CやJavaでもこのような書き方でfor文を実行します。
 
 `GetElementbyId`, `AddEventListener`, `createElement`, `setAttribute`, `appendChild`
-あたりを使いこなすことができるようになれば基本的なDOM操作はできるようになったと言えると思います(*'ω'*)
+あたりを使いこなすことができるようになればJavaScriptからHTMLをいじれるよ鵜になると思います。
 
 DOM操作に関する各メソッドの説明や使い方、例文などを参照するには、**MDN Web Docs**が便利です。JavaScriptの公式Javadocみたいなもんですね。
 

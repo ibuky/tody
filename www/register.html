@@ -2,10 +2,39 @@
     <ons-toolbar>
         <div class="left"><ons-back-button></ons-back-button></div>
         <div class="center">登録画面</div>
-        <div class="right">
-            <ons-button modifier="quiet">
-                <ons-icon icon="fa-bars">
-            </ons-button>
-        </ons-icon></div>
+        <div class="right"></div>
     </ons-toolbar>
+    <div class="input-field">
+        <!-- タイトル -->
+        <ons-input id="title" class="input" placeholder="タイトル(50文字まで)" float></ons-input>
+        <!-- 内容 -->
+        <textarea id="detail" class="textarea input" rows="6" placeholder="内容"></textarea>
+    </div>
+
+    <ons-list>
+        <ons-list-header>オプション</ons-list-header>
+        <ons-list-item>
+            <div class="center">
+                    重要なTODO
+            </div>
+            <div class="center">
+                <ons-button id="inportant-info" modifier="quiet">
+                    <ons-icon size="20px" icon="md-info"></ons-icon>
+                </ons-button>
+            </div>
+            <div class="right">
+                <ons-switch id="important"></ons-switch>
+            </div>
+        </ons-list-item>
+        <ons-list-item>
+            <div class="center">緊急なTODO</div>
+            <div class="right"><ons-switch id="urgent"></ons-switch></div>
+        </ons-list-item>
+    </ons-list>
+
+    <ons-bottom-toolbar modifier="transparent">
+        <div class="center">
+            <ons-button id="submit">登録</ons-button>
+        </div>
+    </ons-bottom-toolbar>
 </ons-page>

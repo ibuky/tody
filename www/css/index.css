@@ -37,7 +37,7 @@ body {
     );
     background-attachment:fixed;
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:22px;
+    font-size:18px;
     height:100%;
     margin:0px;
     padding:0px;
@@ -140,4 +140,21 @@ ons-fab > span > p {
     margin: auto;
     line-height: 20vw;
     font-size: 8vw;
+}
+
+ons-input, .textarea {
+    background-color: white;
+}
+
+.input-field {
+    margin: 5vw;
+}
+
+.input {
+    margin-bottom: 20px;
+    width: 90vw;
+}
+
+ons-button {
+    vertical-align: middle;
 }
