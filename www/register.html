@@ -1,22 +1,26 @@
 <ons-page id="register.html">
     <ons-toolbar>
         <div class="left"><ons-back-button></ons-back-button></div>
-        <div class="center">登録画面</div>
+        <div class="center">情報を入力してください</div>
         <div class="right"></div>
     </ons-toolbar>
-    <div class="input-field">
+    <ons-list>
         <!-- タイトル -->
-        <ons-input id="title" class="input" placeholder="タイトル(50文字まで)" float></ons-input>
-        <!-- 内容 -->
-        <textarea id="detail" class="textarea input" rows="6" placeholder="内容"></textarea>
-    </div>
+        <ons-list-item modifier="nodivider">
+            <ons-input id="title" class="input" placeholder="タイトル(50文字まで)" float></ons-input>
+        </ons-list-item>
 
+        <!-- 詳細内容 -->
+        <ons-list-item modifier="nodivider">
+            <textarea id="detail" class="textarea input" rows="6" placeholder="内容"></textarea>
+        </ons-list-item>
+    </ons-list>
+        
     <ons-list>
         <ons-list-header>オプション</ons-list-header>
+        <!-- 重要フラグ -->
         <ons-list-item>
-            <div class="center">
-                    重要なTODO
-            </div>
+            <div class="center">重要なTODO</div>
             <div class="center">
                 <ons-button id="inportant-info" modifier="quiet">
                     <ons-icon size="20px" icon="md-info"></ons-icon>
@@ -26,15 +30,25 @@
                 <ons-switch id="important"></ons-switch>
             </div>
         </ons-list-item>
+
+        <!-- 緊急フラグ -->
         <ons-list-item>
             <div class="center">緊急なTODO</div>
-            <div class="right"><ons-switch id="urgent"></ons-switch></div>
+            <div class="center">
+                <ons-button id="urgent-info" modifier="quiet">
+                    <ons-icon size="20px" icon="md-info"></ons-icon>
+                </ons-button>
+            </div>
+            <div class="right">
+                <ons-switch id="urgent"></ons-switch>
+            </div>
         </ons-list-item>
     </ons-list>
 
+    <!-- 登録ボタン -->
     <ons-bottom-toolbar modifier="transparent">
         <div class="center">
-            <ons-button id="submit">登録</ons-button>
+            <ons-button id="submit" class="button--normal">登録</ons-button>
         </div>
     </ons-bottom-toolbar>
 </ons-page>

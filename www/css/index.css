@@ -142,19 +142,7 @@ ons-fab > span > p {
     font-size: 8vw;
 }
 
-ons-input, .textarea {
-    background-color: white;
-}
-
-.input-field {
-    margin: 5vw;
-}
-
 .input {
     margin-bottom: 20px;
     width: 90vw;
-}
-
-ons-button {
-    vertical-align: middle;
 }

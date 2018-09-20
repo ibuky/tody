@@ -1,8 +1,9 @@
 document.addEventListener('init', function(event) {
     // 表示対象のページを取得
     var page = event.target;
-
     
+    // 存在していなければテーブルを作成
+    createTable();
 
     // button.htmlページの処理
     if (page.id === 'button.html') {
@@ -15,3 +16,7 @@ document.addEventListener('init', function(event) {
         
     }
 });
+
+function createTable() {
+    console.log('here');
+}
