@@ -1,4 +1,4 @@
-# HTML/CSS/JavascriptでAndroid/iOSアプリをつくる。(8 - 登録画面の作成)
+# HTML/CSS/JavascriptでAndroid/iOSアプリをつくる。(8 - 登録画面の作成(HTML))
 
 ### 前の記事
 
@@ -165,7 +165,7 @@ var js_list = {
     <ons-list>
         <!-- タイトル -->
         <ons-list-item modifier="nodivider">
-            <ons-input id="title" class="input" placeholder="タイトル(50文字まで)" float></ons-input>
+            <p><ons-input id="title" class="input" placeholder="タイトル(50文字まで)" float></ons-input></p>
         </ons-list-item>
 
         <!-- 詳細内容 -->

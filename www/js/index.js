@@ -3,7 +3,7 @@ document.addEventListener('init', function(event) {
     var page = event.target;
     
     // 存在していなければテーブルを作成
-    createTable();
+    // createTable();
 
     // button.htmlページの処理
     if (page.id === 'button.html') {
@@ -15,6 +15,10 @@ document.addEventListener('init', function(event) {
         js_sqltest.init(page);
         
     }
+});
+
+document.addEventListener('deviceready', function(event) {
+    createTable();
 });
 
 function createTable() {
