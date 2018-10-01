@@ -180,7 +180,7 @@ var js_list = {
         <ons-list-item>
             <div class="center">重要なTODO</div>
             <div class="center">
-                <ons-button id="inportant-info" modifier="quiet">
+                <ons-button id="important-info" modifier="quiet">
                     <ons-icon size="20px" icon="md-info"></ons-icon>
                 </ons-button>
             </div>
@@ -258,7 +258,7 @@ idは登録時に値を取得するために必要なため、必ず指定して
 <ons-list-item>
     <div class="center">重要なTODO</div>
     <div class="center">
-        <ons-button id="inportant-info" modifier="quiet">
+        <ons-button id="important-info" modifier="quiet">
             <ons-icon size="20px" icon="md-info"></ons-icon>
         </ons-button>
     </div>
