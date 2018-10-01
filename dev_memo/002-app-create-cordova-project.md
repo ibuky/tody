@@ -1,7 +1,7 @@
 # HTML/CSS/JavascriptでAndroid/iOSアプリをつくる。(2 - Cordovaプロジェクトの作成)
 
 ### 前の記事
-開発環境の構築
+[http://www.taneyats.com/entry/cordova-app-1:embed]
 
 
 ### 目標
@@ -37,6 +37,9 @@
 選択後に、VSCodeの左側の部分に以下のような感じでファイルとフォルダ群が表示されていると思います。
 
 <!-- エクスプローラーの画像 -->
+<div class="center">
+    <a data-flickr-embed="true"  href="https://www.flickr.com/photos/153853557@N08/44314524434/in/dateposted-public/" title="open_on_vscode"><img src="https://farm2.staticflickr.com/1930/44314524434_18d56eec8c_z.jpg" width="240" height="577" alt="open_on_vscode"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
+</div>
 
 拡張設定を入れていないままだとファイルとフォルダのアイコンがそっけない感じになっていると思います。拡張機能の`Material Icon Theme`というものを導入すると画像のような感じで拡張子ごとにアイコンを変更してくれます。
 
@@ -85,7 +88,7 @@
 
 `name`と`displayName`の部分にアプリ名を設定しておくといいでしょう。`description`と`author`の部分も修正したい方はしましょう。
 
-このファイルはほかの人が同じようにこのプロジェクトの開発環境を構築するときに必要となる場合がありますが、詳しい説明は後回しです。
+このファイルはほかの人が同じようにこのプロジェクトの開発環境を構築するときに必要となる場合がありますが、詳しい説明は特にしないです。( 一一)
 
 
 ### プラットフォームを追加する
