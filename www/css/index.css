@@ -146,3 +146,13 @@ ons-fab > span > p {
     margin-bottom: 20px;
     width: 90vw;
 }
+
+.urgent {
+    background-color: orange;
+}
+
+.important {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+}
