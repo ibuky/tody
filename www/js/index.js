@@ -63,11 +63,4 @@ function createTable() {
         // SQL処理成功時
         console.log('テーブル初期化成功');
     });
-
-    // SQL(SELECT)を実行
-    db.transaction(function(tx) {
-        tx.executeSql('SELECT * FROM todo LIMIT 100', [], function(tx, result) {
-            console.log(result.rows);
-        })
-    })
 }

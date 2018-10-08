@@ -1,12 +1,4 @@
-const FLAG_Y               = '1';
-const FLAG_N               = '0';
-const POPUP_CONFIRM_CANCEL = 0;
-const POPUP_CONFIRM_OK     = 1;
-
-
 var js_list = {
-    
-
     /**
      * ページ表示時の処理
      */
@@ -84,7 +76,9 @@ var js_list = {
     
             // SQL(SELECT)を実行
             db.transaction(function(tx) {
-                tx.executeSql(select_sql, [FLAG_Y], function(tx, result) {
+                tx.executeSql(select_sql, [js_const.FLAG_Y], function(tx, result) {
+                    console.log(result);
+                    
                     for (var i = 0; i < result.rows.length; i++) {
                         var obj = {}                    // 一行ごとの値保持用
                         var vals = result.rows.item(i); // SQlの実行結果
@@ -113,10 +107,10 @@ var js_list = {
      * @param {element} elem ons-list-item
      */
     changeBgColor : function(elem) {
-        if (elem.urgent === FLAG_Y) {
+        if (elem.urgent === js_const.FLAG_Y) {
             // 緊急フラグがYの場合
             elem.classList.add('urgent');
-        } else if (elem.important === FLAG_Y) {
+        } else if (elem.important === js_const.FLAG_Y) {
             // 緊急フラグがNで、重要フラグがYの場合
             elem.classList.add('important');
         }
@@ -168,7 +162,7 @@ var js_list = {
         return new Promise(function(resolve, reject) {
             db.transaction(function(tx) {
                 var update_sql = 'UPDATE todo SET valid = ? WHERE id = ?';
-                tx.executeSql(update_sql, [FLAG_N, id]);
+                tx.executeSql(update_sql, [js_const.FLAG_N, id]);
             },
             function(error) {
                 // UPDATE失敗時

@@ -128,10 +128,14 @@ var js_register = {
                       'INSERT INTO todo (valid, title, detail, important, urgent, date) '
                     + 'VALUES (1,?,?,?,?,CURRENT_TIMESTAMP)';   // INSERT文
 
-                tx.executeSql(
-                    insert_sql,
-                    [input_data.title, input_data.detail, input_data.important, input_data.urgent]
-                );
+                var insert_val = [
+                    input_data.title,
+                    input_data.detail,
+                    input_data.important,
+                    input_data.urgent
+                ]
+
+                tx.executeSql(insert_sql, insert_val);
             },
             function(error) {
                 // INSERT失敗時
