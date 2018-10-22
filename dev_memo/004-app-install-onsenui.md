@@ -1,7 +1,7 @@
 # HTML/CSS/JavaScriptでAndroid/iOSアプリをつくる。(4 - OnsenUIの導入)
 
 ### 前の記事
-仮想端末でのサンプルアプリの起動
+[https://www.taneyats.com/entry/cordova-app-3:embed]
 
 ### 目標
 - OnsenUIを導入する
@@ -27,7 +27,7 @@ OnsenUIを導入して、`<ons-button>`という要素でボタンを作成す�
 
 OnsenUIのソースファイルを入手する方法は公式サイトからのDLやgitなどいっぱいありますが、今回は`npm`コマンドを利用して取得します。
 
-VSCodeを開いて、TODOリストのプロジェクトを開いてからターミナルを開いてください。(`Ctrl + Shift + Y`)
+VSCodeを開いて、TODOリストのプロジェクトを開いてからターミナルを開いてください。(`Ctrl + Shift + Y` もしくは `ツールバー > ターミナル > 新しいターミナル`)
 
 開けましたらそこで以下のコマンドを実行します。
 
@@ -61,6 +61,8 @@ www/
 ```
 
 ちょっと見づらいかもしれないですが、こんな感じの構造にします。`css/`と`js/`はもとからあると思いますので、`img/`と`lib/`フォルダ、および`lib/js/`フォルダを作成してください。
+
+`lib/js/`フォルダには共通部品や定数用のファイルを置く予定ですがもしかしたら使わないかもしれません。
 
 そして、`node_modules/onsenui/`のフォルダを`www/lib/`内にコピーしてください。これで`index.html`からOnsenUIのCSSやJSを読み込むことができるようになります。
 
@@ -253,6 +255,11 @@ OnsenUI特有の処理は`ons.notification.alert()`ですね！これを実行�
 
 <!-- button画面 -->
 <!-- popup -->
+
+<div class="center">
+    <a data-flickr-embed="true"  href="https://www.flickr.com/photos/153853557@N08/43365323800/in/dateposted-public/" title="Screenshot_1535549837"><img src="https://farm2.staticflickr.com/1903/43365323800_8ba5fac42a_z.jpg" width="360" height="640" alt="Screenshot_1535549837"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
+</div>
+
 
 CSSを設定していないので不格好ですね( ;∀;)
 

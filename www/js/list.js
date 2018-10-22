@@ -18,7 +18,7 @@ var js_list = {
                 /**
                  * 動的に一覧の作成
                  */
-                for (var i = 0; i < list_data.length; i++) {
+                for (var i = 0; i < data.length; i++) {
                     // 空の<ons-list-item>を作成
                     var elem_list_item = document.createElement('ons-list-item');
                     
@@ -27,9 +27,9 @@ var js_list = {
                     elem_list_item.setAttribute('tappable', '');
                     
                     // 表示する値を追加
-                    elem_list_item.innerHTML = list_data[i].title;
+                    elem_list_item.innerHTML = data[i].title;
                     // アイテムごとの値をセット
-                    elem_list_item.line_data = list_data[i];
+                    elem_list_item.line_data = data[i];
                     
                     // フラグに応じて背景色を変更
                     this.changeBgColor(elem_list_item);
@@ -44,10 +44,10 @@ var js_list = {
                     // 親要素に追加
                     elem_list.appendChild(elem_list_item);
                 }
-        })
-        .catch(function() {
-            // SQL処理時にエラーが発生した場合
-        })
+            }.bind(this))
+            .catch(function() {
+                // SQL処理時にエラーが発生した場合
+            })
     },
     
     /**
@@ -97,7 +97,7 @@ var js_list = {
      * タップしたアイテムの詳細画面へ遷移します。
      */
     onClickListItem : function(event) {
-        document.getElementById('navi').pushPage('detail.html', {data : event.target.line_data});
+        document.getElementById('navi').pushPage('update.html', {data : event.target.line_data});
     },
 
     /**
@@ -125,7 +125,7 @@ var js_list = {
 
         var opt = {
             title : '',
-            message : '',
+            message : '完了しますか？',
         };
 
         ons.notification.confirm(opt)
@@ -146,7 +146,7 @@ var js_list = {
                             // 処理失敗時
                             ons.notification.alert({
                                 title : '',
-                                message : '',
+                                message : '更新に失敗しました...',
                             })
                         })
                 }

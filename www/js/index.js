@@ -1,3 +1,9 @@
+// アプリ起動時に一度のみ実行
+document.addEventListener('deviceready', function(event) {
+    createTable();  // テーブルを作成する(テーブルが既に存在している場合何もしない)
+});
+
+// 各ページの初期表示
 document.addEventListener('init', function(event) {
     // 表示対象のページを取得
     var page = event.target;
@@ -17,11 +23,10 @@ document.addEventListener('init', function(event) {
     } else if (page.id === 'register.html') {
         js_register.init(page);
         
-    }
-});
+    } else if (page.id === 'update.html') {
+        js_update.init(page);
 
-document.addEventListener('deviceready', function(event) {
-    createTable();
+    }
 });
 
 /**

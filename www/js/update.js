@@ -1,4 +1,4 @@
-var js_register = {
+var js_update = {
     /* 定数 */
     FLAG_Y : '1',  // フラグ(true)
     FLAG_N : '0',  // フラグ(false)
@@ -80,12 +80,8 @@ var js_register = {
         return true;
     },
 
-    /**
-     * 画面に入力された値を取得します。
-     * @returns {Object} 画面に入力された値
-     */
     getInputData : function() {
-        var input_vals = {};    // 入力値保持用
+        var input_vals = [];    // 入力値保持用
         
         input_vals.title     = document.getElementById('title').value;  // タイトル
         input_vals.detail    = document.getElementById('detail').value; // 詳細情報
@@ -122,7 +118,7 @@ var js_register = {
     /**
      * 入力した情報からINSERT文を発行します。
      * @param {object} input_data 入力情報
-     * @returns {Promise}
+     * @returns {Promise} INSERTに成功した場合、then 
      */
     execInsertSql : function(input_data) {
         // INSERT文の実行
