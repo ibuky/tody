@@ -154,4 +154,42 @@ var js_register = {
             });
         });
     },
+
+    /**
+     * 一覧画面から渡された値を各入力項目へセットします。
+     * @param {object} data 入力値のオブジェクト
+     * @returns {boolean} 全項目のセットに成功した場合true
+     */
+    setTodoValues : function(data) {
+        if (!data) return false;
+
+        if (!this.setValueToInputField('title', data.title)) {
+            return false;
+        } else if (!this.setValueToInputField('detail', data.title)) {
+            return false;
+        } else if (!this.setValueToInputField('important', data.title)) {
+            return false;
+        } else if (!this.setValueToInputField('urgent', data.title)) {
+            return false;
+        }
+
+        return true;
+    },
+
+    /**
+     * 値を項目へセットします。
+     * @param {string} id    対象の入力フィールドのID
+     * @param {string} value セットする値
+     * @returns {boolean}    値のセットに成功した場合true
+     */    
+    setValueToInputField : function(id, value) {
+        if (!field || !value) return false; // いづれかの引数が空の場合
+        
+        var elem = getElementById(id);
+        if (!elem) return false;
+
+        elem.value = value;
+
+        return true;
+    }
 }
