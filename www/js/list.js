@@ -5,9 +5,96 @@ var js_list = {
     init : function(page) {
         // 登録ボタンに処理を追加
         var elem_reg_btn = document.getElementById('register-button');
-        elem_reg_btn.addEventListener('click', this.onClickRegisterButton, false);
+        elem_reg_btn.addEventListener('click', this.onClickRegisterButton.bind(this), false);
     },
 
+    /**
+     * 登録ボタン押下時の処理
+     */
+    onClickRegisterButton : function() {
+        var values = {};    // 入力値格納用
+
+        // 入力値の取得
+        var elem_input = document.getElementById('input-title');
+        values.title = elem_input.value;
+
+        // エラーが発生している場合、以降の処理を行わない
+        if (!this.checkError(values)) return;
+
+        // INSERT処理を実行
+        this.execInsertSql(values)
+            .then(function() {
+                // 成功時
+                this.dispNoTitlePopup('登録しました!');
+                elem_input.value = '';
+            }.bind(this))
+            .catch(function() {
+                // 失敗時
+                this.dispNoTitlePopup('登録に失敗しました...');
+            }.bind(this));
+    },
+
+    /**
+     * エラーチェックを行います。
+     * @param {Object} values 入力値
+     * @returns {boolean} エラーがあればfalse
+     */
+    checkError : function(values) {
+        if (values == {}) {
+            this.dispNoTitlePopup('入力値を正しく取得できません。');
+            return false;
+        }
+
+        // 入力値のチェック
+        if (values.title == null || values.title == '') {
+            // 値が取得できない OR 空の場合エラー
+            this.dispNoTitlePopup('タイトルを入力してください。');
+            return false;
+        }
+
+        return true;
+    },
+
+    /**
+     * INSERT文を実行します。
+     * @param {Object} values 入力値
+     */
+    execInsertSql : function(values) {
+        // INSERT文の実行
+        return new Promise(function(resolve, reject) {
+            db.transaction(function(tx) {
+                // INSERT文
+                var insert_sql =
+                      'INSERT INTO todo (valid, title, date)'
+                    + 'VALUES (1,?,CURRENT_TIMESTAMP)';
+
+                var insert_val = [values.title];
+
+                tx.executeSql(insert_sql, insert_val);
+            },
+            function(error) {
+                // INSERT失敗時
+                console.log('INSERTに失敗しました : ' + error.message);
+                reject();
+            },
+            function() {
+                // INSERT成功時
+                console.log('INSERTに成功しました');
+                resolve();
+            });
+        });
+    },
+
+    /**
+     * タイトルなしのポップアップを表示します。
+     * @param {String} message メッセージ部分に表示する内容 
+     */
+    dispNoTitlePopup : function(message) {
+        ons.notification.alert({
+            title: '',
+            message: message
+        });
+    }
 }
 
 // var js_list = {

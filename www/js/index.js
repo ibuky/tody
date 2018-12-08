@@ -45,9 +45,6 @@ function createTable() {
                 + "    id          INTEGER PRIMARY KEY,"    // ID
                 + "    valid       TEXT    NOT NULL,"       // 有効フラグ
                 + "    title       TEXT    NOT NULL,"       // タイトル
-                + "    detail      TEXT,"                   // 詳細情報
-                + "    important   TEXT    NOT NULL,"       // 重要フラグ
-                + "    urgent      TEXT    NOT NULL,"       // 緊急フラグ
                 + "    date        TEXT    NOT NULL"        // 登録日時
                 + ")",
 
