@@ -156,3 +156,18 @@ ons-fab > span > p {
     color: white;
     font-weight: bold;
 }
+
+.vertical-align-middle {
+    vertical-align: middle;
+}
+
+ons-bottom-toolbar {
+    height: 3em !important;
+    text-align: center;
+}
+
+/* 入力項目 */
+.input-title {
+    margin-top: 4%;
+    width: 85%;
+}

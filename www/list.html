@@ -1,16 +1,20 @@
 <ons-page id="list.html">
     <ons-toolbar>
         <div class="left"></div>
-        <div class="center">タイトル</div>
+        <div class="center">TODO LIST</div>
         <div class="right"></div>
     </ons-toolbar>
 
     <ons-list id="list">
-        <ons-list-header>一覧です。</ons-list-header>
     </ons-list>
 
-    <!-- 新規登録ボタン -->
-    <ons-fab id="register-button" class="button--fab" position="bottom right">
-        <p><ons-icon icon="md-plus"></ons-icon></p>
-    </ons-fab>
+    <ons-bottom-toolbar>
+        <!-- 入力部 -->
+        <ons-input id="input-title" class="input-title" placeholder="What to do?"></ons-input>
+        
+        <!-- 登録ボタン -->
+        <ons-button id="register-button" modifier="quiet">
+            <ons-icon icon="fa-check"></ons-icon>
+        </ons-button>
+    </ons-bottom-toolbar>
 </ons-page>
