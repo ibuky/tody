@@ -165,7 +165,7 @@ var js_list = {
             elem_list_item.line_data = data[i];
         
             // タップ時の動作を設定(詳細画面へ遷移)
-            elem_list_item.addEventListener('click', this.onClickListItem, false);
+            elem_list_item.addEventListener('click', this.onClickListItem.bind(this), false);
         
             // 親要素に追加
             elem_list.appendChild(elem_list_item);
@@ -175,7 +175,56 @@ var js_list = {
     /**
      * アイテムタップ時の処理。
      */
-    onClickListItem : function() {
-        console.log('item tapped');
+    onClickListItem : function(event) {
+        ons.notification.confirm({
+            title: '',
+            message: 'このTODOを完了しますか?',
+            callback: (answer) => this.onCloseConfirmPop(answer, event),
+        })
+    },
+
+    /**
+     * 確認用ポップアップを閉じる時の処理。
+     * @param {Number} answer [CANCEL]を選択した場合0
+     */
+    onCloseConfirmPop : function(answer, event) {
+        if (answer <= 0) return;    // [CANCEL]押下時は何もしない
+        
+        var line_data   = event.target.line_data || event.target.parentElement.line_data;
+        var id          = line_data.id;
+        if (id == null) return;
+
+        this.execUpdateSql(id)
+            .then(() => {
+                this.dispNoTitlePopup('完了しました!');
+                this.getRegisteredData().then((ret) => this.dispTodoList(ret));
+            })
+            .catch(() => {
+                this.dispNoTitlePopup('完了処理に失敗しました...');
+            })
+    },
+
+    /**
+     * UPDATE文を実行します。
+     * @param {Number} id 更新対象のデータのid
+     */
+    execUpdateSql : function(id) {
+        var update_sql = 'UPDATE todo SET valid = 0 WHERE id = ?';
+        var vals = [id];
+
+        return new Promise(function(resolve, reject) {
+            db.transaction(function(tx) {
+                // 実行部分
+                tx.executeSql(update_sql, vals);
+            }, function(error) {
+                // SQL処理エラー発生時の処理
+                console.log('更新処理失敗 : ' + error.message);
+                reject();
+            }, function() {
+                // SQL処理成功時の処理
+                console.log('更新処理成功');
+                resolve();
+            })
+        })
     }
 }

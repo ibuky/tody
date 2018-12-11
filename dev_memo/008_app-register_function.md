@@ -1,5 +1,5 @@
 # HTML/CSS/JavascriptでAndroid/iOSアプリをつくる。(8 - TODOの登録機能を実装)
-こんばんは、たねやつです。前回記事から少し間が空いてしましました。
+こんにちは、たねやつです。前回記事から少し間が空いてしましました。
 
 このアプリについて若干方針を変更します。といってもすでに作成したソースを変更することはありません。
 (一部使われなくなるデータベースのカラムが存在するようになってしまいますが。。)
@@ -75,6 +75,10 @@ ons-bottom-toolbar {
 これで以下のような感じの画面になります。
 
 <!-- ボトムバーを追加した画面 -->
+<div class="center">
+    <a data-flickr-embed="true"  href="https://www.flickr.com/photos/153853557@N08/45542820324/in/dateposted-public/" title="ボトムバーを追加した画面"><img src="https://farm5.staticflickr.com/4872/45542820324_961a8165da_c.jpg" width="450" height="800" alt="ボトムバーを追加した画面"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
+</div>
+
 
 `<ons-icon icon="fa-check">`の部分を変更するとボタン部分のアイコンを変更できます。また、`modifier="quiet"`を削除すると普通のボタンのような見た目になります。
 
@@ -387,8 +391,15 @@ INSERT文を実行して成功している場合は、成功時のポップア�
 入力項目がからの状態で登録ボタンを押して、エラーのポップアップが表示されることや、何か入力して登録ボタンを押して、成功のポップアップが表示されること、**入力項目がクリアされること**などを確認してください。
 
 <!-- 空の場合のポップアップ -->
+<div class="center">
+    <a data-flickr-embed="true"  href="https://www.flickr.com/photos/153853557@N08/45353731605/in/dateposted-public/" title="空の時のポップアップ"><img src="https://farm5.staticflickr.com/4853/45353731605_a059e2ece3_c.jpg" width="450" height="800" alt="空の時のポップアップ"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
+</div>
 
 <!-- 登録成功時のポップアップ -->
+<div class="center">
+    <a data-flickr-embed="true"  href="https://www.flickr.com/photos/153853557@N08/45542820234/in/dateposted-public/" title="登録成功時のポップアップ"><img src="https://farm5.staticflickr.com/4810/45542820234_7c2fb5298b_c.jpg" width="450" height="800" alt="登録成功時のポップアップ"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
+</div>
+
 
 ポップアップが正常に表示されない、入力項目がクリアされないなどの問題がある場合は、**コードのステップ実行や変数のインスペクションを駆使して**バグとりを進めましょう。プログラム作ってる感が出てきましたね(笑)
 
