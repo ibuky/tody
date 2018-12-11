@@ -14,8 +14,38 @@ var js_list = {
             }.bind(this))
             .catch(function() {
                 // 失敗時
-                this.dispNoTitlePopup('一覧の作成に失敗しました。')
+                this.dispNoTitlePopup('一覧の作成に失敗しました。');
             }.bind(this))
+    },
+
+    /**
+     * 取得した値で一覧を作成します
+     * @param {Array} data 取得した値
+     */
+    dispTodoList : function(data) {
+        var elem_list = document.getElementById('list');    // <ons-list id="list">を取得
+        
+        elem_list.textContent = null;   // 子要素を全て削除
+        
+        for (var i = 0; i < data.length; i++) {
+            // 空の<ons-list-item>を作成
+            var elem_list_item = document.createElement('ons-list-item');
+        
+            // 属性を追加
+            elem_list_item.setAttribute('modifier', 'chevron');
+            elem_list_item.setAttribute('tappable', '');
+        
+            // 表示する値を追加
+            elem_list_item.innerHTML = data[i].title;
+            // アイテムごとの値をセット
+            elem_list_item.line_data = data[i];
+        
+            // タップ時の動作を設定(詳細画面へ遷移)
+            elem_list_item.addEventListener('click', this.onClickListItem.bind(this), false);
+        
+            // 親要素に追加
+            elem_list.appendChild(elem_list_item);
+        }
     },
 
     /**
@@ -50,54 +80,14 @@ var js_list = {
     },
 
     /**
-     * エラーチェックを行います。
-     * @param {Object} values 入力値
-     * @returns {boolean} エラーがあればfalse
+     * アイテムタップ時の処理。
      */
-    checkError : function(values) {
-        if (values == {}) {
-            this.dispNoTitlePopup('入力値を正しく取得できません。');
-            return false;
-        }
-
-        // 入力値のチェック
-        if (values.title == null || values.title == '') {
-            // 値が取得できない OR 空の場合エラー
-            this.dispNoTitlePopup('タイトルを入力してください。');
-            return false;
-        }
-
-        return true;
-    },
-
-    /**
-     * INSERT文を実行します。
-     * @param {Object} values 入力値
-     */
-    execInsertSql : function(values) {
-        // INSERT文の実行
-        return new Promise(function(resolve, reject) {
-            db.transaction(function(tx) {
-                // INSERT文
-                var insert_sql =
-                      'INSERT INTO todo (valid, title, date)'
-                    + 'VALUES (1,?,CURRENT_TIMESTAMP)';
-
-                var insert_val = [values.title];
-
-                tx.executeSql(insert_sql, insert_val);
-            },
-            function(error) {
-                // INSERT失敗時
-                console.log('INSERTに失敗しました : ' + error.message);
-                reject();
-            },
-            function() {
-                // INSERT成功時
-                console.log('INSERTに成功しました');
-                resolve();
-            });
-        });
+    onClickListItem : function(event) {
+        ons.notification.confirm({
+            title: '',
+            message: 'このTODOを完了しますか?',
+            callback: (answer) => this.onCloseConfirmPop(answer, event),
+        })
     },
 
     /**
@@ -109,6 +99,27 @@ var js_list = {
             title: '',
             message: message
         });
+    },
+
+    /**
+     * 確認用ポップアップを閉じる時の処理。
+     * @param {Number} answer [CANCEL]を選択した場合0
+     */
+    onCloseConfirmPop : function(answer, event) {
+        if (answer <= 0) return;    // [CANCEL]押下時は何もしない
+        
+        var line_data   = event.target.line_data || event.target.parentElement.line_data;
+        var id          = line_data.id;
+        if (id == null) return;
+
+        this.execUpdateSql(id)
+            .then(() => {
+                this.dispNoTitlePopup('完了しました!');
+                this.getRegisteredData().then((ret) => this.dispTodoList(ret));
+            })
+            .catch(() => {
+                this.dispNoTitlePopup('完了処理に失敗しました...');
+            })
     },
 
     /**
@@ -143,65 +154,33 @@ var js_list = {
     },
 
     /**
-     * 取得した値で一覧を作成します
-     * @param {Array} data 取得した値
+     * INSERT文を実行します。
+     * @param {Object} values 入力値
      */
-    dispTodoList : function(data) {
-        var elem_list = document.getElementById('list');    // <ons-list id="list">を取得
-        
-        elem_list.textContent = null;   // 子要素を全て削除
-        
-        for (var i = 0; i < data.length; i++) {
-            // 空の<ons-list-item>を作成
-            var elem_list_item = document.createElement('ons-list-item');
-        
-            // 属性を追加
-            elem_list_item.setAttribute('modifier', 'chevron');
-            elem_list_item.setAttribute('tappable', '');
-        
-            // 表示する値を追加
-            elem_list_item.innerHTML = data[i].title;
-            // アイテムごとの値をセット
-            elem_list_item.line_data = data[i];
-        
-            // タップ時の動作を設定(詳細画面へ遷移)
-            elem_list_item.addEventListener('click', this.onClickListItem.bind(this), false);
-        
-            // 親要素に追加
-            elem_list.appendChild(elem_list_item);
-        }
-    },
+    execInsertSql : function(values) {
+        // INSERT文の実行
+        return new Promise(function(resolve, reject) {
+            db.transaction(function(tx) {
+                // INSERT文
+                var insert_sql =
+                      'INSERT INTO todo (valid, title, date)'
+                    + 'VALUES (1,?,CURRENT_TIMESTAMP)';
 
-    /**
-     * アイテムタップ時の処理。
-     */
-    onClickListItem : function(event) {
-        ons.notification.confirm({
-            title: '',
-            message: 'このTODOを完了しますか?',
-            callback: (answer) => this.onCloseConfirmPop(answer, event),
-        })
-    },
+                var insert_val = [values.title];
 
-    /**
-     * 確認用ポップアップを閉じる時の処理。
-     * @param {Number} answer [CANCEL]を選択した場合0
-     */
-    onCloseConfirmPop : function(answer, event) {
-        if (answer <= 0) return;    // [CANCEL]押下時は何もしない
-        
-        var line_data   = event.target.line_data || event.target.parentElement.line_data;
-        var id          = line_data.id;
-        if (id == null) return;
-
-        this.execUpdateSql(id)
-            .then(() => {
-                this.dispNoTitlePopup('完了しました!');
-                this.getRegisteredData().then((ret) => this.dispTodoList(ret));
-            })
-            .catch(() => {
-                this.dispNoTitlePopup('完了処理に失敗しました...');
-            })
+                tx.executeSql(insert_sql, insert_val);
+            },
+            function(error) {
+                // INSERT失敗時
+                console.log('INSERTに失敗しました : ' + error.message);
+                reject();
+            },
+            function() {
+                // INSERT成功時
+                console.log('INSERTに成功しました');
+                resolve();
+            });
+        });
     },
 
     /**
@@ -226,5 +205,26 @@ var js_list = {
                 resolve();
             })
         })
-    }
+    },
+
+    /**
+     * エラーチェックを行います。
+     * @param {Object} values 入力値
+     * @returns {boolean} エラーがあればfalse
+     */
+    checkError : function(values) {
+        if (values == {}) {
+            this.dispNoTitlePopup('入力値を正しく取得できません。');
+            return false;
+        }
+
+        // 入力値のチェック
+        if (values.title == null || values.title == '') {
+            // 値が取得できない OR 空の場合エラー
+            this.dispNoTitlePopup('タイトルを入力してください。');
+            return false;
+        }
+
+        return true;
+    },
 }
