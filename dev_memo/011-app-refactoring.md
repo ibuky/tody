@@ -143,11 +143,128 @@ ons-bottom-toolbar {
 
 
 ##### TODOがない場合の表示
-現状一覧に何もない状態だとまっさらで何も表示されないので何か表示させてみます。
+現状一覧に何もない状態だとまっさらで何も表示されないので何か表示させてみます。`dispTodoList`に修正を加えます。
+
+```javascript
+/**
+ * 取得した値で一覧を作成します
+ * @param {Array} data 取得した値
+ */
+dispTodoList : function(data) {
+    var elem_list = document.getElementById('list');    // <ons-list id="list">を取得
+    
+    elem_list.textContent = null;   // 子要素を全て削除
+
+    /** ここから追加 */
+    // 登録データが0件の場合
+    if (data.length == 0) {
+        var elem_list_item = document.createElement('ons-list-item');
+        elem_list_item.classList.add('list-empty');
+        elem_list_item.innerHTML = 'Nothing to do now...';
+        elem_list.appendChild(elem_list_item);
+        return;
+    }
+    /** ここまで追加 */
+    // ...
+},
+```
+
+SQLで取得できたデータが0件の場合に、専用の`ons-list-item`を作成してそれだけを表示させて処理を抜けます。`element.classList.add`で要素に指定するクラスを追加することができます。
+
+CSSに以下を追加してください。
+
+```css
+.list-empty {
+    height: 100%;
+    background: lightgray;
+    color: gray;
+}
+```
+
+これでTODOのリストの要素を全部削除すると以下のような感じに表示されます。
+
+<!-- 件数0の時の画面 -->
+
+高さを調節して全体的に表示したかったのですが、ツールバーをのぞいた部分の高さをどうしても取得できないため断念。。。
+
+
+##### エンター入力時に登録実行
+入力項目にタイトルを入力したのちに、キーボード上のエンターキーを押しても登録が実行されません。HTMLのフォームだと普通は登録などの次の処理が実行されるのでそれっぽい動きをするようにします。
+
+まずは入力項目に処理を追加します。
+
+```javascript
+init : function(page) {
+    // 入力項目に処理を追加
+    var elem_input = document.getElementById('input-title');
+    elem_input.addEventListener('focus', this.onFocusInputTitle.bind(this), false);
+    elem_input.addEventListener('blur',  this.onBlurInputTitle.bind(this),  false);
+
+    // 登録ボタンに処理を追加
+    var elem_reg_btn = document.getElementById('register-button');
+    elem_reg_btn.addEventListener('click', this.onClickRegisterButton.bind(this), false);
+
+    // ...
+},
+```
+
+`init`の部分に登録ボタン押下時の処理があるので、順番的にその前に追加します。**入力項目が入力状態(focusが当たった状態)の時と、フォーカスが外れた時**に処理を追加します。
+
+指定している関数の中身は以下のような感じです。
+
+```javascript
+/**
+ * 入力項目にフォーカスしたときの処理。
+ */
+onFocusInputTitle : function() {
+    document.addEventListener('keydown', this.onKeyDown);
+},
+
+/**
+ * 入力項目のフォーカスが外れたときの処理。
+ */
+onBlurInputTitle : function() {
+    document.removeEventListener('keydown', this.onKeyDown);
+},
+```
+
+`onFocusInputTitle`では、`keydown`イベント発生時に`onKeyDown`という関数を実行するように設定しています。`keydown`イベントはキーボードのキーのいずれかが押されたときに毎回発生します。
+
+`onBlurInputTitle`ではその逆で、`keydown`イベントに設定した`onKeyDown`という関数を除去しています。もし除去しないままにしておくと、**入力項目にフォーカスが当たるたびに**`onKeyDown`**関数が追加されます。**そうなってしまうと、例えば3回フォーカスした後にデータをエンターキーで登録すると3データ文登録されることになってしまいます。
+
+`onKeyDown`の内容はこんな感じです。
+
+```javascript
+/**
+ * キー入力に関する処理。
+ */
+onKeyDown : function(event) {
+    if (event.keyCode == 13) {
+        // Enterキー押下時
+        document.getElementById('register-button').click(); // 登録ボタンを押下
+        event.target.blur();    // フォーカスを外す
+        event.preventDefault(); // 元の動作を無効化
+    }
+},
+```
+
+`event.keyCode`で入力されたキーボードのキー番号を参照できます。
+
+[http://faq.creasus.net/04/0131/CharCode.html:embed]
+
+エンターキーは`13`なのでその時だけ登録ボタンのクリック処理を追加します。今まで知らなかったのですが`element.click()`で疑似的にクリックしたことにできるんですね(*´з`)
+
+これで入力中にエンターキーを押すと登録できるようになりました！
 
 
 ##### その他
 チェックボックスを追加して一度に複数削除するとか、上のタイトルの部分に残っているTODOの個数を表示させるとか追加できそうな機能はいくらでもあるのですが、今回は省略します。とりあえずは基本的な部分だけでもアプリとして完成させてしまいましょう!
+
+
+### 最後に
+今回はちょっとした手直しだけでした。おそらく次回が最後の記事になると思われます(*´з`)
+
+最後の記事ではアプリをビルドして、実機で動作させてみます。
 
 ### 次の記事
 アプリのビルド

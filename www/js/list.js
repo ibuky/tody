@@ -7,6 +7,11 @@ var js_list = {
         var elem_reg_btn = document.getElementById('register-button');
         elem_reg_btn.addEventListener('click', this.onClickRegisterButton.bind(this), false);
 
+        // 入力項目に処理を追加
+        var elem_input = document.getElementById('input-title');
+        elem_input.addEventListener('focus', this.onFocusInputTitle.bind(this), false);
+        elem_input.addEventListener('blur',  this.onBlurInputTitle.bind(this),  false);
+
         // 登録されているデータの取得
         this.getRegisteredData()
             .then(function(ret) {
@@ -19,6 +24,32 @@ var js_list = {
     },
 
     /**
+     * 入力項目にフォーカスしたときの処理。
+     */
+    onFocusInputTitle : function() {
+        document.addEventListener('keydown', this.onKeyDown);
+    },
+    
+    /**
+     * 入力項目のフォーカスが外れたときの処理。
+     */
+    onBlurInputTitle : function() {
+        document.removeEventListener('keydown', this.onKeyDown);
+    },
+
+    /**
+     * キー入力に関する処理。
+     */
+    onKeyDown : function(event) {
+        if (event.keyCode == 13) {
+            // Enterキー押下時
+            document.getElementById('register-button').click(); // 登録ボタンを押下
+            event.target.blur();    // フォーカスを外す
+            event.preventDefault(); // 元の動作を無効化
+        }
+    },
+
+    /**
      * 取得した値で一覧を作成します
      * @param {Array} data 取得した値
      */
@@ -26,6 +57,15 @@ var js_list = {
         var elem_list = document.getElementById('list');    // <ons-list id="list">を取得
         
         elem_list.textContent = null;   // 子要素を全て削除
+
+        // 登録データが0件の場合
+        if (data.length == 0) {
+            var elem_list_item = document.createElement('ons-list-item');
+            elem_list_item.classList.add('list-empty');
+            elem_list_item.innerHTML = 'Nothing to do now...';
+            elem_list.appendChild(elem_list_item);
+            return;
+        }
         
         for (var i = 0; i < data.length; i++) {
             // 空の<ons-list-item>を作成

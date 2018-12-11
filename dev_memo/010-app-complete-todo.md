@@ -107,6 +107,9 @@ elem_list_item.addEventListener('click', this.onClickListItem.bind(this), false)
 これで処理はいったんOKですので仮想端末を起動して動作確認を行います。ポップアップが表示されてOKを押したとき、CANCELを押したときにそれぞれデバッグコンソールにログが出力されていることを確認出来たらOKです。
 
 <!-- 確認のポップアップが表示されている画面 -->
+<div class="center">
+    <a data-flickr-embed="true"  href="https://www.flickr.com/photos/153853557@N08/45542822914/in/dateposted-public/" title="確認のポップアップが表示されている画面"><img src="https://farm2.staticflickr.com/1977/45542822914_3081262d43_c.jpg" width="450" height="800" alt="確認のポップアップが表示されている画面"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
+</div>
 
 
 #### 削除処理

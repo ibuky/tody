@@ -197,6 +197,10 @@ onClickListItem : function() {
 ソースに問題が発生していないことを確認してから仮想端末で起動してみましょう!(^^)!
 
 <!-- 一覧が生成される画面 -->
+<div class="center">
+    <a data-flickr-embed="true"  href="https://www.flickr.com/photos/153853557@N08/45542821794/in/dateposted-public/" title="一覧が生成される画面"><img src="https://farm5.staticflickr.com/4891/45542821794_8c0f83c7ce_c.jpg" width="450" height="800" alt="一覧が生成される画面"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
+</div>
+
 
 ちゃんと表示されているでしょうか??
 スクロールしても画面下の入力項目とボタンは下に張り付いていることも確認できますね( 一一)
@@ -296,6 +300,9 @@ this.execInsertSql(values)
 では動作確認しましょう。仮想端末を再起動してデータを登録してみましょう。
 
 <!-- 登録結果のポップアップと一覧の更新 -->
+<div class="center">
+    <a data-flickr-embed="true"  href="https://www.flickr.com/photos/153853557@N08/45353732455/in/dateposted-public/" title="登録結果のポップアップと一覧の更新"><img src="https://farm5.staticflickr.com/4855/45353732455_5f098b5468_c.jpg" width="450" height="800" alt="登録結果のポップアップと一覧の更新"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
+</div>
 
 ポップアップの表示と同時に一覧が更新されているのが確認できると思います。以上で今回は終了です ^^) _旦~~
 
