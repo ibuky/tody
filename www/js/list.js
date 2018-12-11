@@ -3,14 +3,14 @@ var js_list = {
      * ページ表示時の処理
      */
     init : function(page) {
-        // 登録ボタンに処理を追加
-        var elem_reg_btn = document.getElementById('register-button');
-        elem_reg_btn.addEventListener('click', this.onClickRegisterButton.bind(this), false);
-
         // 入力項目に処理を追加
         var elem_input = document.getElementById('input-title');
         elem_input.addEventListener('focus', this.onFocusInputTitle.bind(this), false);
         elem_input.addEventListener('blur',  this.onBlurInputTitle.bind(this),  false);
+        
+        // 登録ボタンに処理を追加
+        var elem_reg_btn = document.getElementById('register-button');
+        elem_reg_btn.addEventListener('click', this.onClickRegisterButton.bind(this), false);
 
         // 登録されているデータの取得
         this.getRegisteredData()

@@ -184,6 +184,9 @@ CSSに以下を追加してください。
 これでTODOのリストの要素を全部削除すると以下のような感じに表示されます。
 
 <!-- 件数0の時の画面 -->
+<div class="center">
+    <a data-flickr-embed="true"  href="https://www.flickr.com/photos/153853557@N08/44456717220/in/dateposted-public/" title="件数0の時の画面"><img src="https://farm5.staticflickr.com/4828/44456717220_c6d1e93719_c.jpg" width="450" height="800" alt="件数0の時の画面"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
+</div>
 
 高さを調節して全体的に表示したかったのですが、ツールバーをのぞいた部分の高さをどうしても取得できないため断念。。。
 
